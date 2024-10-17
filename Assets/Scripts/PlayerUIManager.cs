@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] GameObject magicButton;
     [SerializeField] GameObject itemButton;
     [SerializeField] GameObject fleeButton;
+    [SerializeField] TextMeshProUGUI actionDescript;
 
     AudioSource audi;
 
@@ -20,6 +22,7 @@ public class PlayerUIManager : MonoBehaviour
     //    [0]
 
     bool yourTurn = true;
+    public bool GetTurn () { return yourTurn; }
 
     int action = 0; // can be used to determine which is active. 
     /* 0 = fight
@@ -55,24 +58,28 @@ public class PlayerUIManager : MonoBehaviour
                 magicButton.transform.position = slot1;
                 itemButton.transform.position = slot2;
                 fleeButton.transform.position = slot3;
+                actionDescript.text = "Fight";
                 break;
             case 1: // magic select
                 fightButton.transform.position = slot3;
                 magicButton.transform.position = slot0;
                 itemButton.transform.position = slot1;
                 fleeButton.transform.position = slot2;
+                actionDescript.text = "Magic";
                 break;
             case 2: // item select
                 fightButton.transform.position = slot2;
                 magicButton.transform.position = slot3;
                 itemButton.transform.position = slot0;
                 fleeButton.transform.position = slot1;
+                actionDescript.text = "Items";
                 break;
             case 3: // flee select
                 fightButton.transform.position = slot1;
                 magicButton.transform.position = slot2;
                 itemButton.transform.position = slot3;
                 fleeButton.transform.position = slot0;
+                actionDescript.text = "Flee";
                 break;
             default: // failsafe
                 Debug.LogError("you shouldn't be here.");
@@ -85,6 +92,7 @@ public class PlayerUIManager : MonoBehaviour
             magicButton.gameObject.SetActive(true);
             itemButton.gameObject.SetActive(true);
             fleeButton.gameObject.SetActive(true);
+            actionDescript.gameObject.SetActive(true);
         }
         else
         {
@@ -92,6 +100,7 @@ public class PlayerUIManager : MonoBehaviour
             magicButton.gameObject.SetActive(false);
             itemButton.gameObject.SetActive(false);
             fleeButton.gameObject.SetActive(false);
+            actionDescript.gameObject.SetActive(false);
         }
     }
 
@@ -111,6 +120,7 @@ public class PlayerUIManager : MonoBehaviour
                 case 0:
                     //perform fight here
                     Debug.Log("you chose to fight.");
+
                     yourTurn = false;
                     break;
                 case 1:
@@ -155,16 +165,16 @@ public class PlayerUIManager : MonoBehaviour
             audi.Play();
             switch (action)
             {
-                case 0:
+                case 0: // fight turns to flee
                     action = 3;
                     break;
-                case 1:
+                case 1: // magic to fight
                     action = 0;
                     break;
-                case 2:
+                case 2: // items to magic
                     action = 1;
                     break;
-                case 3:
+                case 3: // flee to items
                     action = 2;
                     break;
             }

@@ -8,6 +8,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] int maxHealth;
     [SerializeField] int defense;
     [SerializeField] GameObject enemyType;
+    [SerializeField] string enemyName;
 
     private void Awake()
     {
