@@ -15,8 +15,8 @@ public class PlayerUIManager : MonoBehaviour
     Vector3 slot0, slot1, slot2, slot3;
     // goes from 0 -> 1 -> 2 -> 3 -> 0 -> ...
     //
-    //    [3]
-    // [1]   [2] 
+    //    [2]
+    // [3]   [1] 
     //    [0]
 
     bool yourTurn = true;
@@ -34,11 +34,13 @@ public class PlayerUIManager : MonoBehaviour
         audi = GetComponent<AudioSource>();
         slot0 = fightButton.transform.position;
         slot1 = magicButton.transform.position;
+        slot2 = itemButton.transform.position;
+        slot3 = fleeButton.transform.position;
     }
 
     // Update is called once per frame
     void Update()
-    {;
+    {
         buttonAppear();
         selection();
         debugging();
@@ -46,26 +48,50 @@ public class PlayerUIManager : MonoBehaviour
 
     void buttonAppear()
     {
+        switch (action)
+        {
+            case 0: // fight select
+                fightButton.transform.position = slot0;
+                magicButton.transform.position = slot1;
+                itemButton.transform.position = slot2;
+                fleeButton.transform.position = slot3;
+                break;
+            case 1: // magic select
+                fightButton.transform.position = slot3;
+                magicButton.transform.position = slot0;
+                itemButton.transform.position = slot1;
+                fleeButton.transform.position = slot2;
+                break;
+            case 2: // item select
+                fightButton.transform.position = slot2;
+                magicButton.transform.position = slot3;
+                itemButton.transform.position = slot0;
+                fleeButton.transform.position = slot1;
+                break;
+            case 3: // flee select
+                fightButton.transform.position = slot1;
+                magicButton.transform.position = slot2;
+                itemButton.transform.position = slot3;
+                fleeButton.transform.position = slot0;
+                break;
+            default: // failsafe
+                Debug.LogError("you shouldn't be here.");
+                break;
+        }
 
-        if (action == 0)
-        {
-            fightButton.transform.position = slot0;
-            magicButton.transform.position = slot1;
-        }
-        else
-        {
-            fightButton.transform.position = slot1;
-            magicButton.transform.position = slot0;
-        }
         if (yourTurn)
         {
             fightButton.gameObject.SetActive(true);
             magicButton.gameObject.SetActive(true);
+            itemButton.gameObject.SetActive(true);
+            fleeButton.gameObject.SetActive(true);
         }
         else
         {
             fightButton.gameObject.SetActive(false);
             magicButton.gameObject.SetActive(false);
+            itemButton.gameObject.SetActive(false);
+            fleeButton.gameObject.SetActive(false);
         }
     }
 
