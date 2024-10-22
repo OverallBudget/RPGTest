@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE}
 public class BattleSystem : MonoBehaviour
@@ -16,8 +17,10 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] GameObject selector;
     [SerializeField] Transform playerLocation;
     int enemy;
-    bool fighting;
+    string enemy1Name;
 
+    PlayerScript PlayerUnit;
+    EnemyScript EnemyUnit;
     [SerializeField] Transform enemy1Location;
     [SerializeField] Transform enemy2Location;
     [SerializeField] Transform enemy3Location;
@@ -31,45 +34,25 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
 
+    public BattleHUD enemyHUD;
+
     private void Start()
     {
-
-        //if (enemy1 != null)
-        //{
-        //    Vector2 v = new Vector2(enemy1.transform.position.x, enemy1.transform.position.y + upOffset);
-        //    pos1 = v;
-        //}
-
-        //if (enemy2 != null)
-        //{
-        //    Vector2 v = new Vector2(enemy2.transform.position.x, enemy2.transform.position.y + upOffset);
-        //    pos2 = v;
-        //}
-
-        //if (enemy3 != null)
-        //{
-        //    Vector2 v = new Vector2(enemy3.transform.position.x, enemy3.transform.position.y + upOffset);
-        //    pos3 = v;
-        //}
-
-        //if (enemy4 != null)
-        //{
-        //    Vector2 v = new Vector2(enemy4.transform.position.x, enemy4.transform.position.y + upOffset);
-        //    enemy4 = new GameObject { hideFlags = HideFlags.HideAndDontSave };
-        //    pos4 = v;
-        //}
-
         state = BattleState.START;
         SetupBattle();
     }
 
     void SetupBattle()
     {
-        Instantiate(player, playerLocation);
-        if (enemy1 != null) { Instantiate(enemy1, enemy1Location); }
-        if (enemy2 != null) { Instantiate(enemy2, enemy2Location); }
-        if (enemy3 != null) { Instantiate(enemy3, enemy3Location); }
-        if (enemy4 != null) { Instantiate(enemy4, enemy4Location); }
-        
+        GameObject PlayerGO = Instantiate(player, playerLocation);
+        PlayerUnit = PlayerGO.GetComponent<PlayerScript>();
+        GameObject EnemyGO = Instantiate(enemy1, enemy1Location);
+        EnemyUnit = EnemyGO.GetComponent<EnemyScript>();
+        enemy1Name = EnemyUnit.getName();
+        //if (enemy2 != null) { Instantiate(enemy2, enemy2Location); } // keep it simple and have 1 for now
+        //if (enemy3 != null) { Instantiate(enemy3, enemy3Location); }
+        //if (enemy4 != null) { Instantiate(enemy4, enemy4Location); }
+
+        enemyHUD.SetHUD(EnemyUnit);
     }
 }
