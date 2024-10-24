@@ -12,7 +12,10 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] GameObject fleeButton;
     [SerializeField] TextMeshProUGUI actionDescript;
 
-    AudioSource audi;
+    public AudioClip swap; // swap icon
+    public AudioClip select; // select icon
+    public AudioSource audi;
+
 
     Vector3 slot0, slot1, slot2, slot3;
     // goes from 0 -> 1 -> 2 -> 3 -> 0 -> ...
@@ -114,9 +117,9 @@ public class PlayerUIManager : MonoBehaviour
 
         if (Input.GetButtonDown("Space"))
         {
+            audi.PlayOneShot(select);
             switch (action)
-            {
-
+            { 
                 case 0:
                     //perform fight here
                     Debug.Log("you chose to fight.");
@@ -162,7 +165,7 @@ public class PlayerUIManager : MonoBehaviour
         }
 
         if (Input.GetButtonDown("Left")) {
-            audi.Play();
+            audi.PlayOneShot(swap);
             switch (action)
             {
                 case 0: // fight turns to flee
@@ -182,7 +185,7 @@ public class PlayerUIManager : MonoBehaviour
 
         if (Input.GetButtonDown("Right"))
         {
-            audi.Play();
+            audi.PlayOneShot(swap);
             switch (action)
             {
                 case 0: // fight turns to magic

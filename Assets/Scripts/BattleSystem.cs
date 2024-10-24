@@ -34,7 +34,7 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
 
-    public BattleHUD enemyHUD;
+    public BattleHUD enemy1HUD;
 
     private void Start()
     {
@@ -53,6 +53,6 @@ public class BattleSystem : MonoBehaviour
         //if (enemy3 != null) { Instantiate(enemy3, enemy3Location); }
         //if (enemy4 != null) { Instantiate(enemy4, enemy4Location); }
 
-        enemyHUD.SetHUD(EnemyUnit);
+        enemy1HUD.SetHUD(EnemyUnit);
     }
 }
