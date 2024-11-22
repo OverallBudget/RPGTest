@@ -6,25 +6,27 @@ using UnityEngine.UI;
 
 public class BattleHUD : MonoBehaviour
 {
-    public TextMeshProUGUI nameText;
     public Slider healthSlider;
+    public TextMeshProUGUI healthText;
     [SerializeField] Transform position;
-
-    private void Start()
-    {
-        
-    }
+    int maxHP;
     public void SetHUD(EnemyScript enemy)
     {
-        nameText.text = enemy.getName();
-        healthSlider.maxValue = enemy.getMaxHealth();
-        healthSlider.value = enemy.getCurrentHealth();
-        nameText.transform.position = position.position;
-        healthSlider.transform.position = position.position;
+        maxHP = enemy.getMaxHealth();
+        int currentHP = enemy.getCurrentHealth();
+        healthSlider.maxValue = maxHP;
+        healthSlider.value = currentHP;
+        healthText.text = currentHP + "/" + maxHP;
     }
 
-    void setHP(int hp)
+    public void setHP(int hp)
     {
-        healthSlider.value = hp;
+        //healthSlider.value = hp;
+        healthText.text = hp + "/" + maxHP;
+    }
+
+    public void hideText()
+    {
+        healthText.gameObject.SetActive(false);
     }
 }

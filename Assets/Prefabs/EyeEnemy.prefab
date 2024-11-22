@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048c13539a755bf44892b89487d53020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 0
+  currentHealth: 20
+  maxHealth: 20
   defense: 0
+  damage: 2
   enemyType: {fileID: 0}
-  enemyName: 
+  enemyName: Wandering Eye

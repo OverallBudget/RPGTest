@@ -17,8 +17,17 @@ public class EnemyScript : MonoBehaviour
     public int getDefense() { return defense; }
     public int getDamage() {  return damage; }
 
-    private void Awake()
+    public bool TakeDamage(int damage) // return true on death, false if still living
     {
-        
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
